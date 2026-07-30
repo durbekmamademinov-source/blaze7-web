@@ -25,7 +25,7 @@ const STEPS = [
 // --- ANIMATION VARIANTS ---
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
 };
 
 const staggerContainer = {
@@ -41,12 +41,12 @@ export default function BlazeLandingPage() {
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         <motion.div
           animate={{ y: [0, -40, 0], x: [0, 30, 0] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 12, repeat: Infinity, ease: [0.42, 0, 0.58, 1] as const }}
           className="absolute top-[-10%] left-[15%] w-75 md:w-125 h-75 md:h-125 bg-[#00f0ff] rounded-full blur-[120px] opacity-30"
         />
         <motion.div
           animate={{ y: [0, 40, 0], x: [0, -30, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          transition={{ duration: 10, repeat: Infinity, ease: [0.42, 0, 0.58, 1] as const, delay: 2 }}
           className="absolute bottom-[-10%] right-[15%] w-100 md:w-150 h-100 md:h-150 bg-[#8b5cf6] rounded-full blur-[120px] opacity-30"
         />
       </div>
@@ -102,7 +102,7 @@ export default function BlazeLandingPage() {
                 initial={{ width: 0 }}
                 whileInView={{ width: "48%" }}
                 viewport={{ once: true }}
-                transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
+                transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] as const, delay: 0.2 }}
                 className="h-full bg-linear-to-r from-[#00f0ff] to-[#8b5cf6] rounded-full shadow-[0_0_20px_rgba(0,240,255,0.4)]"
               />
             </div>
