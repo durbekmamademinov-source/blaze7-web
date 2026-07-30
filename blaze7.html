@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BLAZE7 — Official YouTube & Giveaway Hub</title>
+
+    <!-- Google Fonts: Orbitron & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+        /* ==========================================
+       CSS VARIABLES & GLOBAL SETUP
+       ========================================== */
+        :root {
+            --bg-dark: #05070e;
+            --bg-card: rgba(13, 17, 31, 0.65);
+            --bg-card-hover: rgba(20, 27, 48, 0.85);
+            --accent-blue: #00f0ff;
+            --accent-purple: #8b5cf6;
+            --text-white: #ffffff;
+            --text-dim: #94a3b8;
+            --glow-blue: rgba(0, 240, 255, 0.35);
+            --glow-purple: rgba(139, 92, 246, 0.35);
+            --gradient-main: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand-text {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* Custom Smooth Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 240, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-blue);
+        }
+
+        /* ==========================================
+       AMBIENT ANIMATED BACKGROUND GLOWS
+       ========================================== */
+        .bg-glow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.5;
+            animation: floatGlow 12s infinite alternate ease-in-out;
+        }
+
+        .glow-1 {
+            top: -10%;
+            left: 15%;
+            width: 500px;
+            height: 500px;
+            background: var(--accent-blue);
+        }
+
+        .glow-2 {
+            bottom: -10%;
+            right: 15%;
+            width: 600px;
+            height: 600px;
+            background: var(--accent-purple);
+            animation-delay: -6s;
+        }
+
+        @keyframes floatGlow {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: translate(30px, 40px) scale(1.1);
+                opacity: 0.65;
+            }
+        }
+
+        /* Utility Container */
+        .container {
+            max-width: max-content;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ==========================================
+       HEADER & NAVIGATION
+       ========================================== */
+        header {
+            padding: 20px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            background: rgba(5, 7, 14, 0.75);
+            transition: var(--transition-smooth);
+            border-radius: 20px;
+            
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px var(--glow-blue);
+            letter-spacing: 2px;
+        }
+
+        .nav-btn {
+            background: var(--gradient-main);
+            color: #000;
+            font-weight: 800;
+            padding: 10px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            box-shadow: 0 0 20px var(--glow-purple);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 0 30px var(--glow-blue);
+        }
+
+        /* ==========================================
+       HERO SECTION
+       ========================================== */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 50px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 18px;
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid rgba(0, 240, 255, 0.4);
+            border-radius: 30px;
+            color: var(--accent-blue);
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+        }
+
+        .hero h1 {
+            font-size: 3.4rem;
+            margin-bottom: 18px;
+            line-height: 1.15;
+        }
+
+        .hero h1 span {
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-dim);
+            max-width: 620px;
+            margin: 0 auto 40px;
+        }
+
+        /* ==========================================
+       SUBSCRIBER PROGRESS BAR CARD
+       ========================================== */
+        .progress-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 35px;
+            max-width: 750px;
+            margin: 0 auto 80px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            transition: var(--transition-smooth);
+        }
+
+        .progress-card:hover {
+            border-color: rgba(0, 240, 255, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 240, 255, 0.12);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .progress-title {
+            font-size: 1.05rem;
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        .progress-count {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem;
+            color: var(--accent-blue);
+            text-shadow: 0 0 10px var(--glow-blue);
+        }
+
+        .bar-outer {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            padding: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .bar-inner {
+            height: 100%;
+            width: 48%;
+            background: var(--gradient-main);
+            border-radius: 8px;
+            box-shadow: 0 0 20px var(--glow-blue);
+            transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .progress-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        /* ==========================================
+       SECTION HEADINGS
+       ========================================== */
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-dim);
+            margin-bottom: 40px;
+            font-size: 1rem;
+        }
+
+        /* ==========================================
+       GIVEAWAY TIERS
+       ========================================== */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 90px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: var(--transition-smooth);
+        }
+
+        .card.unlocked {
+            border-color: rgba(0, 240, 255, 0.35);
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.08);
+        }
+
+        .card.locked {
+            border-color: rgba(139, 92, 246, 0.25);
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            background: var(--bg-card-hover);
+        }
+
+        .card.unlocked:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 15px 40px var(--glow-blue);
+        }
+
+        .card.locked:hover {
+            border-color: var(--accent-purple);
+            box-shadow: 0 15px 40px var(--glow-purple);
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 22px;
+            right: 22px;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .unlocked .card-tag {
+            background: var(--accent-blue);
+            color: #000;
+        }
+
+        .locked .card-tag {
+            background: var(--accent-purple);
+            color: #fff;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin: 15px 0;
+        }
+
+        .card ul {
+            list-style: none;
+            margin: 20px 0 30px;
+        }
+
+        .card ul li {
+            margin-bottom: 12px;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+        }
+
+        .card ul li i {
+            color: var(--accent-blue);
+        }
+
+        .card.locked ul li i {
+            color: var(--accent-purple);
+        }
+
+        /* ==========================================
+       FEATURED EDITS / SHORTS THUMBNAIL CARDS
+       ========================================== */
+        .shorts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 90px;
+        }
+
+        .short-thumb-card {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            display: block;
+        }
+
+        .short-thumb-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .short-thumb-card .play-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(5, 7, 14, 0.65);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            opacity: 0;
+            transition: var(--transition-smooth);
+            color: var(--text-white);
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .short-thumb-card .play-overlay i {
+            font-size: 3rem;
+            color: #ff0000;
+            filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.8));
+        }
+
+        .short-thumb-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            border-color: var(--accent-blue);
+            box-shadow: 0 20px 40px var(--glow-blue);
+        }
+
+        .short-thumb-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .short-thumb-card:hover .play-overlay {
+            opacity: 1;
+        }
+
+        /* ==========================================
+       HOW TO CLAIM STEPS
+       ========================================== */
+        .steps-section {
+            background: var(--bg-card);
+            border-radius: 28px;
+            padding: 50px 35px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 90px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-top: 35px;
+        }
+
+        .step-box {
+            text-align: center;
+            padding: 20px 15px;
+            transition: var(--transition-smooth);
+            border-radius: 16px;
+        }
+
+        .step-box:hover {
+            background: rgba(255, 255, 255, 0.03);
+            transform: translateY(-4px);
+        }
+
+        .step-num {
+            width: 54px;
+            height: 54px;
+            background: var(--gradient-main);
+            color: #000;
+            font-weight: 900;
+            font-size: 1.3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            box-shadow: 0 0 20px var(--glow-blue);
+        }
+
+        /* ==========================================
+       FOOTER
+       ========================================== */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        footer a:hover {
+            text-shadow: 0 0 10px var(--glow-blue);
+        }
+
+        /* Responsive Queries */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+
+            .progress-card {
+                padding: 25px 20px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .steps-section {
+                padding: 35px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Animated Background Orbs -->
+    <div class="bg-glow-container">
+        <div class="glow-orb glow-1"></div>
+        <div class="glow-orb glow-2"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">BLAZE7</div>
+            <a href="https://www.youtube.com/@BLAZE7_2k?sub_confirmation=1" target="_blank" class="nav-btn">
+                <i class="fa-brands fa-youtube"></i> Subscribe
+            </a>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="badge">🔥 Exclusive Creator Asset Drop</div>
+            <h1>FOOTBALL EDITS & <span>AE PACK GIVEAWAYS</span></h1>
+            <p>High-energy edits, cinematic sound design, and free After Effects editing packs for the community.</p>
+
+            <!-- Live Subscriber Goal Dashboard -->
+            <div class="progress-card">
+                <div class="progress-header">
+                    <span class="progress-title"><i class="fa-solid fa-trophy" style="color:var(--accent-blue)"></i> 5K
+                        Milestone Progress</span>
+                    <span class="progress-count">2,410 / 5,000 Subs</span>
+                </div>
+                <div class="bar-outer">
+                    <div class="bar-inner" style="width: 48%;"></div>
+                </div>
+                <div class="progress-footer">
+                    <span>Current Goal: 5K AE Pack</span>
+                    <span>Next Goal: 10K Secret Pack</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Giveaway Tiers Section -->
+        <h2 class="section-title">Giveaway Tiers</h2>
+        <p class="section-subtitle">Unlock community editing packs as the channel reaches subscriber milestones.</p>
+
+        <div class="grid">
+            <!-- 5K Tier Card -->
+            <div class="card unlocked">
+                <div class="card-tag">Unlocks at 5K</div>
+                <i class="fa-solid fa-box-open fa-2x" style="color:var(--accent-blue)"></i>
+                <h3>5K BLAZE7 AE Pack</h3>
+                <p style="color:var(--text-dim); font-size: 0.95rem;">Designed specifically for football & sports
+                    editors looking to elevate their workflow.</p>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Custom CC (Color Correction) Presets</li>
+                    <li><i class="fa-solid fa-check"></i> Shake & Flash Effect Presets</li>
+                    <li><i class="fa-solid fa-check"></i> High-Quality Text Animation Styles</li>
+                    <li><i class="fa-solid fa-check"></i> Signature Overlays & Sound FX</li>
+                </ul>
+                <a href="https://www.youtube.com/@BLAZE7_2k?sub_confirmation=1" target="_blank" class="nav-btn"
+                    style="width: 100%; text-align: center; justify-content: center;">
+                    Subscribe to Unlock
+                </a>
+            </div>
+
+            <!-- 10K Tier Card -->
+            <div class="card locked">
+                <div class="card-tag">Locked — 10K Goal</div>
+                <i class="fa-solid fa-lock fa-2x" style="color:var(--accent-purple)"></i>
+                <h3>10K Ultimate Vault</h3>
+                <p style="color:var(--text-dim); font-size: 0.95rem;">The ultimate editing suite release once we reach
+                    the 10,000 subscriber milestone.</p>
+                <ul>
+                    <li><i class="fa-solid fa-question"></i> Secret Project File (.aep) Reveal</li>
+                    <li><i class="fa-solid fa-question"></i> Complete Sound Design Library</li>
+                    <li><i class="fa-solid fa-question"></i> Top-Tier Smooth Velocity Presets</li>
+                    <li><i class="fa-solid fa-question"></i> Exclusive 4K Football Clips Folder</li>
+                </ul>
+                <div
+                    style="padding: 12px; background: rgba(139, 92, 246, 0.12); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 12px; text-align: center; font-size: 0.85rem; color: var(--accent-purple); font-weight: 700;">
+                    🔒 Unlocks Automatically at 10,000 Subs
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Edits / Shorts Section -->
+        <h2 class="section-title">Featured Edits</h2>
+        <p class="section-subtitle">Check out some of our top viral football edits directly from YouTube.</p>
+
+        <div class="shorts-grid">
+            <!-- Short 1 -->
+            <a href="https://youtube.com/shorts/Uaz-o9MDDfo" target="_blank" class="short-thumb-card">
+                <img src="https://img.youtube.com/vi/Uaz-o9MDDfo/maxresdefault.jpg" alt="BLAZE7 Football Edit"
+                    loading="lazy">
+                <div class="play-overlay">
+                    <i class="fa-brands fa-youtube"></i>
+                    <span>Watch Short</span>
+                </div>
+            </a>
+
+            <!-- Short 2 -->
+            <a href="https://youtube.com/shorts/g6QOjkb0XyA" target="_blank" class="short-thumb-card">
+                <img src="https://img.youtube.com/vi/g6QOjkb0XyA/maxresdefault.jpg" alt="BLAZE7 Football Edit"
+                    loading="lazy">
+                <div class="play-overlay">
+                    <i class="fa-brands fa-youtube"></i>
+                    <span>Watch Short</span>
+                </div>
+            </a>
+
+            <!-- Short 3 -->
+            <a href="https://youtube.com/shorts/Vbp69pRnDk8" target="_blank" class="short-thumb-card">
+                <img src="https://img.youtube.com/vi/Vbp69pRnDk8/maxresdefault.jpg" alt="BLAZE7 Football Edit"
+                    loading="lazy">
+                <div class="play-overlay">
+                    <i class="fa-brands fa-youtube"></i>
+                    <span>Watch Short</span>
+                </div>
+            </a>
+
+            <!-- Short 4 -->
+            <a href="https://youtube.com/shorts/6qiUrpIY38o" target="_blank" class="short-thumb-card">
+                <img src="https://img.youtube.com/vi/6qiUrpIY38o/maxresdefault.jpg" alt="BLAZE7 Football Edit"
+                    loading="lazy">
+                <div class="play-overlay">
+                    <i class="fa-brands fa-youtube"></i>
+                    <span>Watch Short</span>
+                </div>
+            </a>
+
+            <!-- Short 5 -->
+            <a href="https://youtube.com/shorts/APXKnUo83ZM" target="_blank" class="short-thumb-card">
+                <img src="https://img.youtube.com/vi/APXKnUo83ZM/maxresdefault.jpg" alt="BLAZE7 Football Edit"
+                    loading="lazy">
+                <div class="play-overlay">
+                    <i class="fa-brands fa-youtube"></i>
+                    <span>Watch Short</span>
+                </div>
+            </a>
+
+            <!-- Short 6 -->
+            <a href="https://youtube.com/shorts/KqHOq3kI-gc" target="_blank" class="short-thumb-card">
+                <img src="https://img.youtube.com/vi/KqHOq3kI-gc/maxresdefault.jpg" alt="BLAZE7 Football Edit"
+                    loading="lazy">
+                <div class="play-overlay">
+                    <i class="fa-brands fa-youtube"></i>
+                    <span>Watch Short</span>
+                </div>
+            </a>
+
+            <!-- Short 7 (New) -->
+            <a href="https://youtube.com/shorts/HAp7jGWcvJM" target="_blank" class="short-thumb-card">
+                <img src="https://img.youtube.com/vi/HAp7jGWcvJM/maxresdefault.jpg" alt="Klopp's brilliant comeback"
+                    loading="lazy">
+                <div class="play-overlay">
+                    <i class="fa-brands fa-youtube"></i>
+                    <span>Watch Short</span>
+                </div>
+            </a>
+
+            <!-- Short 8 (New) -->
+            <a href="https://youtube.com/shorts/yJQKbMe5M3s" target="_blank" class="short-thumb-card">
+                <img src="https://img.youtube.com/vi/yJQKbMe5M3s/maxresdefault.jpg" alt="I'm Quitting YouTube"
+                    loading="lazy">
+                <div class="play-overlay">
+                    <i class="fa-brands fa-youtube"></i>
+                    <span>Watch Short</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- How To Claim Steps -->
+        <div class="steps-section">
+            <h2 class="section-title" style="margin-bottom: 5px;">How To Claim</h2>
+            <p style="text-align: center; color: var(--text-dim);">Follow these simple steps to ensure you get the
+                download link when we hit 5K.</p>
+
+            <div class="steps-grid">
+                <div class="step-box">
+                    <div class="step-num">1</div>
+                    <h4 style="margin-bottom: 6px;">Subscribe</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-dim);">Must be an active subscriber to @BLAZE7_2k.
+                    </p>
+                </div>
+                <div class="step-box">
+                    <div class="step-num">2</div>
+                    <h4 style="margin-bottom: 6px;">Drop a Comment</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-dim);">Comment on the 5K video drop to get notified.
+                    </p>
+                </div>
+                <div class="step-box">
+                    <div class="step-num">3</div>
+                    <h4 style="margin-bottom: 6px;">Download Pack</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-dim);">Access the direct Google Drive link posted on
+                        milestone day.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2026 BLAZE7. Built for football editors worldwide.</p>
+            <p style="margin-top: 8px;">
+                <a href="https://www.youtube.com/@BLAZE7_2k" target="_blank">YouTube Channel</a> •
+                <a href="#">Back to top</a>
+            </p>
+        </footer>
+    </div>
+
+</body>
+
+</html>
